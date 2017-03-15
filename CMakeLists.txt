@@ -1,0 +1,5 @@
+cmake_minimum_required (VERSION 2.8)
+project (GreyConvert)
+find_package( OpenCV REQUIRED)
+add_executable(GreyConvert grey.cpp)
+target_link_libraries (GreyConvert ${OpenCV_LIBS})
