@@ -22,8 +22,8 @@ int main(int argc, char *argv[])
     Size sz = img.size();
 
     ofstream outfile(".//grey.csv");
-    outfile << "width=" << sz.width << endl << "height=" << sz.height << endl;
-    outfile << "image=" << img;
+    outfile << "width " << sz.width << endl << "height " << sz.height << endl;
+    outfile << "image " << img;
     outfile.close();
 
     return 0;
