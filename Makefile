@@ -11,7 +11,8 @@ LIBS = -L/usr/lib/arm-linux-gnueabihf -lopencv_core -lopencv_highgui -lopencv_im
 TARGET = grey2text.x text2grey.x
 
 all: $(TARGET)
-Debug: grey2text.x
+grey2text: grey2text.x
+text2grey: text2grey.x
 
 .PHONY: clean install uninstall $(SUBDIRS)
 
