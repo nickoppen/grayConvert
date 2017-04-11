@@ -14,12 +14,6 @@ void usage(char *argv[])
 
 int main(int argc, char *argv[])
 {
-//    int i;
-//    printf("argc is %d\n", argc);
-//    for (i=0;i<argc;i++)
-//        printf("argv[%d] = %s\n", i, argv[i]);
-//    return -1;
-    ofstream outfile;
 
     if (argc <= 1)
         cout << "what image?" << endl;
@@ -43,8 +37,9 @@ int main(int argc, char *argv[])
 
     if (argc == 4)
     {
-        if(argv[2] == "-o")
+        if(strcmp(argv[2], "-o") == 0)
         {
+            ofstream outfile;
             outfile.open(argv[3]);
 
             outfile << "width " << sz.width << endl << "height " << sz.height << endl;
