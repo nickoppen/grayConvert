@@ -1,6 +1,6 @@
 
 CC = g++
-DEFS += -DDEBUG
+DEFS += -DDEBUG -std=gnu++11
 ESDK=${EPIPHANY_HOME}/tools/host
 
 CCFLAGS += -g $(DEFS)

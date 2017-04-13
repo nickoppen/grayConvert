@@ -27,8 +27,6 @@ void readText(int * grayVals, char * fileName, int * width, int * height)
         exit(-1);
     }
 
-//    fscanf(grayFile, "%s %d", txt, width);
-//    fscanf(grayFile, "%s %d", txt, height);
     grayFile >> txt >> (*width);
     grayFile >> txt >> (*height);
     cout << "width:" << (*width) << " height" << (*height) << endl;
@@ -36,18 +34,25 @@ void readText(int * grayVals, char * fileName, int * width, int * height)
     /// Allocate space to store the gray scale information
     sizeInBytes = (*width) * (*height) * sizeof(int);
     grayVals = (int*)malloc(sizeInBytes);
-//    debuggray = malloc(sizeInBytes);
+    int g2D[*width][*height];
 
     /// read in the gray scale values
-//    fscanf(grayFile, "%s [", txt);
-    pGrayVals = grayVals;
+//    size_t startPos = txt.find('[', 0);     /// find the opening [
+    size_t startPos = 8;            /// skip over "image ["
     for(i=0; i < (*height); i++)
     {
+        getline(grayFile, txt, ';');
+//        cout << txt << endl;
         for(j=0; j < (*width) - 1; j++)
         {
-//            fscanf(grayFile, " %d,", pGrayVals++);
+            cout << txt.substr(startPos, 10);
+//            g2D[i][j] = stoi(txt, &startPos);
+            sizeInBytes = stoi(txt, &startPos);  //  testing
+//            cout << g2D[i][j] << "\t";
+            cout << sizeInBytes << "\t";
         }
-//        fscanf(grayFile, " %d;", pGrayVals++);
+        cout << endl;
+        //getline(grayFile, txt);
     }
     grayFile.close();
 
