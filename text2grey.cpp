@@ -12,67 +12,72 @@ void usage(char *argv[])
         exit(-1);
 }
 
-void readText(int * grayVals, char * fileName, int * width, int * height)
+int main(int argc, char *argv[])
 {
-//    FILE * grayFile;
-    int sizeInBytes;
-    int i,j;
-    string txt;
-    int * pGrayVals;
+    uint8_t * grayData;   /// malloced in readText deleted here
+//    int * grayData;   /// malloced in readText deleted here
+    int width, height;
 
-    fstream grayFile(fileName, fstream::in);
+    int i,j;
+    int newVal;
+    uint8_t * pGrayData;
+//    int * pGrayData;
+    string txt;
+
+    if (argc <= 1)
+    {
+        cout << "What text file?" << endl;
+        exit(-1);
+    }
+
+
+    fstream grayFile(argv[1], fstream::in);
     if(!grayFile.is_open())
     {
         printf("Something wrong with the input gray file...\n");
         exit(-1);
     }
 
-    grayFile >> txt >> (*width);
-    grayFile >> txt >> (*height);
-    cout << "width:" << (*width) << " height" << (*height) << endl;
+    grayFile >> txt >> width;
+    grayFile >> txt >> height;
 
     /// Allocate space to store the gray scale information
-    sizeInBytes = (*width) * (*height) * sizeof(int);
-    grayVals = (int*)malloc(sizeInBytes);
-    int g2D[*width][*height];
+///    grayData = (uint8_t *)malloc((*width) * (*height) * sizeof(uint8_t));
+    grayData = (uint8_t *)malloc(width * height * sizeof(uint8_t));
+    pGrayData = grayData;
 
     /// read in the gray scale values
-//    size_t startPos = txt.find('[', 0);     /// find the opening [
     size_t startPos = 8;            /// skip over "image ["
-    for(i=0; i < (*height); i++)
+    size_t commaPos;
+    for(i=0; i < height; i++)
     {
         getline(grayFile, txt, ';');
-//        cout << txt << endl;
-        for(j=0; j < (*width) - 1; j++)
+        for(j=0; j < width; j++)
         {
-            cout << txt.substr(startPos, 10);
-//            g2D[i][j] = stoi(txt, &startPos);
-            sizeInBytes = stoi(txt, &startPos);  //  testing
-//            cout << g2D[i][j] << "\t";
-            cout << sizeInBytes << "\t";
+            commaPos = txt.find(',', startPos);
+            if (commaPos == string::npos)        /// not found
+                commaPos = txt.length();
+
+            newVal = stoi(txt.substr(startPos, commaPos - startPos), 0);
+            *pGrayData = newVal & 0xFFFF;
+//            *pGrayData = newVal;
+//            cout << i << " " << j << " " << newVal << " " << (int)(*pGrayData) << endl;
+            pGrayData++;
+
+            startPos = commaPos + 1;
         }
-        cout << endl;
-        //getline(grayFile, txt);
+        startPos = 0;
     }
     grayFile.close();
 
-}
+    Size imgSize(width, height);
+    cout << "width " << imgSize.width << endl << "height " << imgSize.height << endl;
+//    Mat img(height, width, CV_8UC1, grayVals);
+    Mat img(imgSize, CV_8UC1, grayData, width);
+    cout << "image " << img;
+    imwrite("img.tif", img);
 
-int main(int argc, char *argv[])
-{
-    int * grayVals;   /// malloced in readText deleted here
-    int width, height;
-
-    if (argc <= 1)
-        cout << "what text file?" << endl;
-    else
-        cout << "Processing: " << argv[1] << endl;
-
-    readText(grayVals, argv[1], &width, &height);
-
-    cout << "grayVals:" << width * height << endl;
-
-    delete grayVals;
+    delete grayData;
     return 0;
 }
 

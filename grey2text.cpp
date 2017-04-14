@@ -27,6 +27,7 @@ int main(int argc, char *argv[])
         return -1;
     }
     Size sz = img.size();
+    cout << " the type is:" << img.type() << endl;
 
     if (argc == 2)
     {
