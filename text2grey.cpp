@@ -15,13 +15,11 @@ void usage(char *argv[])
 int main(int argc, char *argv[])
 {
     uint8_t * grayData;   /// malloced in readText deleted here
-//    int * grayData;   /// malloced in readText deleted here
     int width, height;
 
     int i,j;
     int newVal;
     uint8_t * pGrayData;
-//    int * pGrayData;
     string txt;
 
     if (argc <= 1)
@@ -42,7 +40,6 @@ int main(int argc, char *argv[])
     grayFile >> txt >> height;
 
     /// Allocate space to store the gray scale information
-///    grayData = (uint8_t *)malloc((*width) * (*height) * sizeof(uint8_t));
     grayData = (uint8_t *)malloc(width * height * sizeof(uint8_t));
     pGrayData = grayData;
 
@@ -59,9 +56,7 @@ int main(int argc, char *argv[])
                 commaPos = txt.length();
 
             newVal = stoi(txt.substr(startPos, commaPos - startPos), 0);
-            *pGrayData = newVal & 0xFFFF;
-//            *pGrayData = newVal;
-//            cout << i << " " << j << " " << newVal << " " << (int)(*pGrayData) << endl;
+            *pGrayData = newVal & 0xFFFF;       /// strip off all bit the last 8 bits
             pGrayData++;
 
             startPos = commaPos + 1;
@@ -72,9 +67,7 @@ int main(int argc, char *argv[])
 
     Size imgSize(width, height);
     cout << "width " << imgSize.width << endl << "height " << imgSize.height << endl;
-//    Mat img(height, width, CV_8UC1, grayVals);
     Mat img(imgSize, CV_8UC1, grayData, width);
-    cout << "image " << img;
     imwrite("img.tif", img);
 
     delete grayData;
