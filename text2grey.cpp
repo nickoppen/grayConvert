@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
     grayFile.close();
 
     Size imgSize(width, height);
-    cout << "width " << imgSize.width << endl << "height " << imgSize.height << endl;
+//    cout << "width " << imgSize.width << endl << "height " << imgSize.height << endl;
     Mat img(imgSize, CV_8UC1, grayData, width);
     imwrite("img.tif", img);
 

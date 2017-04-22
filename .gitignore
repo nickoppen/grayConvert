@@ -5,3 +5,7 @@ grey.csv
 *.html
 *.layout
 *.cbp
+equalGrey.csv
+images
+out.txt
+bridge.*
