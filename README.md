@@ -4,11 +4,12 @@ A simple OpenCV based gray scale image converter.
 
 To convert the image to a comma separated text file of gray values:
 
-./grey2text.x <image.tif> [-o values.csv]
+./gray2text.x <image.tif> [-o values.csv]
+
+If the -o option is omitted then the output goes to stdout.
 
 To convert it back to an image
 
-./text2grey.x <textFile.csv -o imagefile.tif
+./text2gray.x [<textFile.csv>] -o imagefile.tif
 
-(I know that I've spelt GRAY incorrectly throughout. I'll correct it eventually)
-
+If the text file is omitted then the input is read from stdin.
