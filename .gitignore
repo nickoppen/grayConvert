@@ -1,11 +1,10 @@
 old
 *.o
-grey.csv
+*.csv
 *.x
 *.html
 *.layout
 *.cbp
-equalGrey.csv
 images
 out.txt
 bridge.*

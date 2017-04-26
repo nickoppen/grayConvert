@@ -8,27 +8,27 @@ INCS = -I.
 LIBS = -L/usr/lib/arm-linux-gnueabihf -lopencv_core -lopencv_highgui -lopencv_imgproc
 
 
-TARGET = grey2text.x text2grey.x
+TARGET = gray2text.x text2gray.x
 
 all: $(TARGET)
-grey2text: grey2text.x
-text2grey: text2grey.x
+gray2text: gray2text.x
+text2gray: text2gray.x
 
 .PHONY: clean install uninstall $(SUBDIRS)
 
 .SUFFIXES: .c .o .x
 
-grey2text.x: grey2text.o
-	$(CC) -o grey2text.x grey2text.o $(LIBS)
+gray2text.x: gray2text.o
+	$(CC) -o gray2text.x gray2text.o $(LIBS)
 
-grey2text.o: grey2text.cpp
-	$(CC) $(CCFLAGS) $(INCS) -c grey2text.cpp -o grey2text.o
+gray2text.o: gray2text.cpp
+	$(CC) $(CCFLAGS) $(INCS) -c gray2text.cpp -o gray2text.o
 
-text2grey.x: text2grey.o
-	$(CC) -o text2grey.x text2grey.o $(LIBS)
+text2gray.x: text2gray.o
+	$(CC) -o text2gray.x text2gray.o $(LIBS)
 
-text2grey.o: text2grey.cpp
-	$(CC) $(CCFLAGS) $(INCS) -c text2grey.cpp -o text2grey.o
+text2gray.o: text2gray.cpp
+	$(CC) $(CCFLAGS) $(INCS) -c text2gray.cpp -o text2gray.o
 
 cleanDebug: $(SUBDIRS)
 	rm -f *.o
