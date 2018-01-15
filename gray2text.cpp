@@ -16,18 +16,17 @@ int main(int argc, char *argv[])
 {
 
     if (argc <= 1)
-        cout << "what image?" << endl;
+        cout << argv[0] << "g2t: No image specified" << endl;
     else
-        cout << "Processing: " << argv[1] << endl;
+        cout << argv[0] << "g2t: Processing: " << argv[1] << endl;
 
     Mat img = imread(argv[1], CV_LOAD_IMAGE_GRAYSCALE);
     if(img.empty())
     {
-        cout << "That image was empty" << endl;
+        cout << argv[0] << " g2t: That image was empty" << endl;
         return -1;
     }
     Size sz = img.size();
-    cout << " the type is:" << img.type() << endl;
 
     if (argc == 2)
     {

@@ -8,7 +8,7 @@ using namespace std;
 
 void usage(char *argv[])
 {
-        cout << "usage: " << argv[0] << " <image> [-o <textfile>]" << endl;
+        cout << "usage: " << argv[0] << " <textfile> [-o <imagefile>]" << endl;
         exit(-1);
 }
 
@@ -24,17 +24,20 @@ int main(int argc, char *argv[])
 
     if (argc <= 1)
     {
-        cout << "What text file?" << endl;
+        cout << argv[0] << " What text file?" << endl;
         exit(-1);
     }
 
+    cout << "Input from: " << argv[1] << "\n";
 
     fstream grayFile(argv[1], fstream::in);
     if(!grayFile.is_open())
     {
-        printf("Something wrong with the input gray file...\n");
+        cout << argv[0] << "t2g: Something wrong with the input text file...\n";
         exit(-1);
     }
+
+    cout << "Output to: " << argv[3] << "\n";
 
     grayFile >> txt >> width;
     grayFile >> txt >> height;
@@ -68,7 +71,7 @@ int main(int argc, char *argv[])
     Size imgSize(width, height);
 //    cout << "width " << imgSize.width << endl << "height " << imgSize.height << endl;
     Mat img(imgSize, CV_8UC1, grayData, width);
-    imwrite("img.tif", img);
+    imwrite(argv[3], img);
 
     delete grayData;
     return 0;
